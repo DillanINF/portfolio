@@ -31,6 +31,7 @@ const staggerContainer = {
 export default function Home() {
   const [showImageModal, setShowImageModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleOpenImageModal = (imageSrc: string) => {
     setSelectedImage(imageSrc);
@@ -40,6 +41,10 @@ export default function Home() {
   const handleCloseImageModal = () => {
     setShowImageModal(false);
     setSelectedImage("");
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -52,7 +57,18 @@ export default function Home() {
         >
           Dillan Gallagher
         </motion.h1>
-        <motion.div className="flex gap-8 text-lg font-medium"
+        
+        {/* Hamburger menu button for mobile */}
+        <div className="md:hidden">
+          <button onClick={toggleMobileMenu} className="text-white focus:outline-none">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+
+        {/* Desktop Navigation */}
+        <motion.div className="hidden md:flex gap-8 text-lg font-medium"
           variants={staggerContainer} initial="hidden" animate="visible"
         >
           <motion.div variants={fadeIn}><Link href="#hero" className="hover:text-purple-400 transition-colors duration-300">Home</Link></motion.div>
@@ -62,6 +78,30 @@ export default function Home() {
           <motion.div variants={fadeIn}><Link href="#contact" className="hover:text-purple-400 transition-colors duration-300">Contact</Link></motion.div>
         </motion.div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <motion.div 
+          className="fixed top-0 left-0 w-full h-full bg-black/90 z-[900] flex flex-col items-center justify-center space-y-8 md:hidden"
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -100 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <button onClick={toggleMobileMenu} className="absolute top-6 right-8 text-white text-4xl focus:outline-none">
+            &times;
+          </button>
+          <motion.div className="flex flex-col gap-8 text-3xl font-medium text-center"
+            variants={staggerContainer} initial="hidden" animate="visible"
+          >
+            <motion.div variants={fadeIn}><Link href="#hero" onClick={toggleMobileMenu} className="hover:text-purple-400 transition-colors duration-300">Home</Link></motion.div>
+            <motion.div variants={fadeIn}><Link href="#about" onClick={toggleMobileMenu} className="hover:text-purple-400 transition-colors duration-300">About</Link></motion.div>
+            <motion.div variants={fadeIn}><Link href="#skills" onClick={toggleMobileMenu} className="hover:text-purple-400 transition-colors duration-300">Skills</Link></motion.div>
+            <motion.div variants={fadeIn}><Link href="#projects" onClick={toggleMobileMenu} className="hover:text-purple-400 transition-colors duration-300">Projects</Link></motion.div>
+            <motion.div variants={fadeIn}><Link href="#contact" onClick={toggleMobileMenu} className="hover:text-purple-400 transition-colors duration-300">Contact</Link></motion.div>
+          </motion.div>
+        </motion.div>
+      )}
 
       <main className="container mx-auto px-6 py-24 space-y-32">
         {/* Hero Section */}
