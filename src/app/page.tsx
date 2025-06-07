@@ -108,7 +108,7 @@ export default function Home() {
             variants={slideInUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.2 }}
           >
             <p className="text-xl text-gray-300 leading-relaxed mb-6">
-              Hello! I'm <span className="font-semibold text-white">Dillan Ilkham Nur Fazry</span>, a 17-year-old born on 28 November 2007. I am passionate about web development and always eager to learn new technologies and create engaging digital experiences.
+              Hello! I&apos;m <span className="font-semibold text-white">Dillan Ilkham Nur Fazry</span>, a 17-year-old born on 28 November 2007. I am passionate about web development and always eager to learn new technologies and create engaging digital experiences.
             </p>
             <h3 className="text-3xl font-bold text-white mb-6 bg-gradient-to-r from-teal-400 to-blue-500 text-transparent bg-clip-text">Education</h3>
             <div className="space-y-8">
